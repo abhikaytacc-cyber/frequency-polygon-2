@@ -1,0 +1,38 @@
+import plotly.graph_objects as go
+
+# Data
+midpoints = [0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6]
+frequencies = [0, 2, 5, 9, 10, 6, 3, 0]
+labels = ["A", "B", "C", "D", "E", "F", "G", "H"]
+
+# Interactive Frequency Polygon
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(
+    x=midpoints,
+    y=frequencies,
+    mode="lines+markers+text",
+    text=labels,
+    textposition="top center",
+    line=dict(color="#800000", width=3),
+    marker=dict(size=8, color="#B22222"),
+    hovertemplate="Point %{text}<br>Screen Time: %{x} hrs<br>Students: %{y}<extra></extra>"
+))
+
+# Styling + Axis lines
+fig.update_layout(
+    title="Interactive Frequency Polygon – Screen Time Data",
+    xaxis_title="Screen Time (hours per day)",
+    yaxis_title="Number of Students",
+    plot_bgcolor="white",
+    xaxis=dict(
+        showline=True, linewidth=2, linecolor='black', mirror=True,
+        range=[min(midpoints), max(midpoints)]  # Extend x-axis to touch A and H
+    ),
+    yaxis=dict(
+        showline=True, linewidth=2, linecolor='black', mirror=True,
+        range=[0, max(frequencies) + 1]  # Start y-axis at 0
+    )
+)
+
+fig.show()
